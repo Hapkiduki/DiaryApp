@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace 'com.hapkiduki.diaryapp'
-    compileSdk 33
+    compileSdk ProjectConfig.compileSdk
 
     defaultConfig {
         applicationId "com.hapkiduki.diaryapp"
-        minSdk 24
-        targetSdk 33
+        minSdk ProjectConfig.minSdk
+        targetSdk ProjectConfig.targetSdk
         versionCode 1
         versionName "1.0"
 
@@ -42,7 +42,7 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.3.1'
+        kotlinCompilerExtensionVersion ProjectConfig.extensionVersion
     }
     packagingOptions {
         resources {
@@ -69,6 +69,7 @@ dependencies {
 
     // Room components
     implementation "androidx.room:room-runtime:2.5.0"
+    implementation project(path: ':data:mongo')
     kapt "androidx.room:room-compiler:2.5.0"
     implementation "androidx.room:room-ktx:2.5.0"
 
@@ -79,7 +80,7 @@ dependencies {
     implementation "androidx.core:core-splashscreen:1.0.0"
 
     // Mongo DB Realm
-    implementation ('org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt') {
+    implementation('org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0-native-mt') {
         version {
             strictly("1.6.0-native-mt")
         }
@@ -121,4 +122,11 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+
+    implementation(project(":core:ui"))
+    implementation(project(":core:util"))
+    implementation(project(":data:mongo"))
+    implementation(project(":feature:auth"))
+    implementation(project(":feature:home"))
+    implementation(project(":feature:write"))
 }
